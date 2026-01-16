@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "No se guardo";
+}
+
+    <h1 class="text-danger mt-5 text-center">409</h1>
+    <h4 class="text-center">Error de conclicto</h4>
+
+    <p class="mt-3 text-center">
+        No se pudo guardar el registro porque ya existe un registro en la db con el mismo identificador.
+    </p>
+
+
+<div class=" text-center mt-2">
+    <a class="btn btn-primary btn-lg"
+       asp-action="Index"
+       asp-controller="Home">
+        Volver a Inicio
+    </a>
+</div>
+    

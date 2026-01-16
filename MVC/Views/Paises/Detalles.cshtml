@@ -1,0 +1,122 @@
+﻿@model Pais;
+
+@{
+    ViewBag.Title = "Detalles";
+    string poblacion = Model.poblacion.ToString("N0");
+    bool enFavoritos = false;
+    List<Pais> lstFavoritos = Context.Session.GetObjectFromJson<List<Pais>>("favoritos")?? new List<Pais>();
+    foreach (var registro in lstFavoritos)
+    {
+        if(registro.nombre == Model.nombre)
+        {
+            enFavoritos = true;
+            break;
+        }
+    }
+}
+
+
+<h2 class="text-center">Detalles del País</h2>
+
+
+<form class="row mt-3" asp-action="BuscarPais" asp-controller="Paises" method="get">
+
+    <div class="col-md-6 offset-md-3">
+        <p class="text-danger text-center">@TempData["Error"]</p>
+        <input class="form-control mb-2 text-center"name="nombre" placeholder="Buscar por nombre de país" />
+
+        <button class="btn btn-primary w-100" type="submit">Buscar</button>
+
+    </div>
+    <input type="hidden" name="paisActual" value="@Model.nombre" />
+</form>
+
+
+
+<div class="row mt-3">
+    <div class="col-md-3 border border-black bg-light mb-3 mb-md-0">
+        <img class="d-block m-auto img-fluid border border-dark mb-1" src="@Model.banderaUrl" alt="Bandera" />
+        <img class="d-none d-md-block m-auto img-fluid border border-dark" src="@Model.escudoUrl" alt="Escudo" @* style="max-width:320px; max-height:200px;" *@ />
+    </div>
+
+    <div class="col-md-6 bg-light mb-3">
+        <div class="list-group text-center">
+            <div class="list-group-item">
+                <strong>Nombre: </strong> @Model.nombre
+            </div>
+            <div class="list-group-item">
+                <strong>Capital: </strong> @Model.capital
+            </div>
+
+            <div class="list-group-item">
+                <strong>Poblacion: </strong>@poblacion
+            </div>
+
+            <div class="list-group-item">
+                <strong>Ubicacion: </strong><a href="@Model.mapaUrl" target="_blank">@Model.mapaUrl</a>
+            </div>
+
+            <div class="list-group-item">
+                <strong>Simbolo monetario: </strong>@Model.moneda
+            </div>
+
+            <div class="list-group-item">
+                <strong>Simbolo monetario: </strong>@Model.simboloMoneda
+            </div>
+
+            <div class="list-group-item">
+                <strong>Idiomas: </strong>
+                @foreach(var registro in Model.idiomas)
+                {
+                   <span class="text-danger">@registro</span>
+                }
+                
+            </div>
+
+            <div class="list-group-item">
+                @if (enFavoritos == false)
+                {
+                    <form method="post" asp-controller="Favoritos" asp-action="AgregarFavorito">
+                        <input type="hidden" asp-for="codigo"/>
+                        <input type="hidden" asp-for="nombre" />
+                        <input type="hidden" asp-for="banderaUrl" />
+                        <input type="hidden" asp-for="capital" />
+                        <input type="hidden" asp-for="poblacion" />
+                        <input type="hidden" asp-for="mapaUrl" />
+                        <input type="hidden" asp-for="simboloMoneda" />
+                        <input type="hidden" asp-for="moneda" />
+
+                        <button type="submit" class="btn btn-warning">Agregar a Favoritos</button>
+                        <a class="btn btn-primary" asp-action="Index" asp-controller="Home">Volver Inicio</a>
+                     </form>
+                
+                }
+                else
+                {
+                    <form method="post" asp-controller="Favoritos" asp-action="EliminarFavorito">
+                        <input type="hidden" asp-for="codigo" />
+                        <input type="hidden" asp-for="nombre" />
+                        <input type="hidden" asp-for="banderaUrl" />
+                        <input type="hidden" asp-for="capital" />
+                        <input type="hidden" asp-for="poblacion" />
+                        <input type="hidden" asp-for="mapaUrl" />
+                        <input type="hidden" asp-for="simboloMoneda" />
+                        <input type="hidden" asp-for="moneda" />
+
+                        <button type="submit" class="btn btn-danger">Eliminar de Favoritos</button>
+                        <a class="btn btn-primary" asp-action="Index" asp-controller="Home">Volver Inicio</a>
+                    </form>
+
+                }
+                    
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="col-md-3 border border-black bg-light">
+        <img class="d-none d-md-block m-auto img-fluid border border-dark mb-1" src="@Model.banderaUrl" alt="Bandera" />
+        <img class="d-block m-auto img-fluid border border-dark" src="@Model.escudoUrl" alt="Escudo" @* style="max-width:320px; max-height:200px;" *@ />
+    </div>
+</div>

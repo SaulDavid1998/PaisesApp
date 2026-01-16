@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<h2 class="text-center">Aplicacion web para ver paises</h2>
+
+@if (Context.Session.ObtenerContador("contador_Favoritos")!=0)
+{
+    <h3 class="text-center text-success"> @TempData["Titulo"]</h3>
+    
+    
+}
+
+<h3 class="text-center text-success"> @TempData["Eliminado"]</h3>
+<h3 class="text-center text-success"> @TempData["Guardado"]</h3>
+
+<h3 class="mt-3"></h3>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Buscar Paises</h5>
+                    <p class="card-text">Busque un determinado pais. El pais por defecto que se muestra es Argentina</p>
+                    <a asp-action="Detalles" asp-controller="Paises" class="btn btn-primary w-100">Buscar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Buscar por Continente</h5>
+                    <p class="card-text">Filtre paises buscando por su Continente y, opcionalmente, por el idioma de la region</p>
+                    <a asp-action="Region" asp-controller="Paises" class="btn btn-success w-100">Buscar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Favoritos</h5>
+                    <p class="card-text">Vea los paises guardados como Favoritos</p>
+                    <a asp-action="ListaFavoritos" asp-controller="Favoritos" class="btn btn-warning w-100">Ver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

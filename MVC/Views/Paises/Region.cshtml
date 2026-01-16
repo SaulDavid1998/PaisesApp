@@ -1,0 +1,63 @@
+﻿@model List<Pais>
+
+@{
+    ViewBag.Title = "Regiones";
+}
+
+<div class="row">
+
+    <div class="col-md-3 mt-5">
+        <h3 class="text-center">Continentes</h3>
+        <div class="list-group text-center">
+            @foreach (string registro in ViewBag.Continentes)
+            {
+                <a asp-action="Region" asp-controller="Paises" asp-route-id="@registro"
+                   class="list-group-item
+                    @if(ViewBag.Region==registro)
+                        {
+                           <text>active</text>
+                        }">
+                    @registro
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-9 mt-5">
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>Pais</th>
+                    <th>Capital</th>
+                    <th>Poblacion</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.nombre</td>
+                        <td>@item.capital</td>
+                        <td>@item.poblacion.ToString("N0")</td>
+                        <td>
+                            <a asp-action="Detalles" asp-controller="Paises" asp-route-id="@item.nombre">Detalles</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @for (int i = 1; i <= ViewBag.totalPaginas; i++)
+        {
+                <a class="btn btn-primary"
+                   asp-action="Region"
+                   asp-route-id="@ViewBag.Region"
+                   asp-route-pagina="@i">
+                    @i
+                </a>
+        }
+    </div>
+</div>
+
