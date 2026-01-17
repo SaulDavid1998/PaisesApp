@@ -80,8 +80,13 @@ Desde esta pantalla se puede:
 
 ---
 
-**Nota**: El proyecto fue hecho con Ef Core. Si se descarga el repositorio de GitHub hay que ejecutar el comando Update-Database en la consola del administrador de paquetes
-para crear la base de datos local. De lo contrario la aplicacion mostrara error al intentar guardar los registros elegidos en Favoritos al clickear el boton Guardar .
+### Nota sobre la base de datos
+
+El proyecto fue hecho con Ef Core. Si se descarga el repositorio de GitHub hay que ejecutar el comando Update-Database en la consola del administrador de paquetes
+para crear la base de datos local. De lo contrario, la aplicacion mostrara error al intentar guardar los registros elegidos en Favoritos al clickear el boton Guardar .
+
+1. Abrir la **Consola del Administrador de Paquetes** en Visual Studio
+2. Ejecutar el siguiente comando: **Update-Database**
 
 
 
